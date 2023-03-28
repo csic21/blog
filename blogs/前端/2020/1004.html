@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>React Native集成安卓原生项目（踩坑） | Milk Hall</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="blog">
+    <meta property="article:published_time" content="2020-10-04T00:00:00.000Z">
+    <meta property="article:modified_time" content="2022-03-08T10:30:00.000Z">
+    <meta property="og:site_name" content="Milk Hall">
+    <meta property="og:title" content="React Native集成安卓原生项目（踩坑）">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html">
+    <meta name="twitter:title" content="React Native集成安卓原生项目（踩坑）">
+    <meta name="twitter:url" content="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="JS, React, React Native">
+    <meta property="article:tag" content="JS">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="preload" href="/assets/css/0.styles.5af1239f.css" as="style"><link rel="preload" href="/assets/js/app.b426a529.js" as="script"><link rel="preload" href="/assets/js/3.574157a2.js" as="script"><link rel="preload" href="/assets/js/1.e34c0054.js" as="script"><link rel="preload" href="/assets/js/16.f9601720.js" as="script"><link rel="prefetch" href="/assets/js/10.e3688b97.js"><link rel="prefetch" href="/assets/js/11.3b582819.js"><link rel="prefetch" href="/assets/js/12.6c029b29.js"><link rel="prefetch" href="/assets/js/13.e4d74466.js"><link rel="prefetch" href="/assets/js/14.8d489122.js"><link rel="prefetch" href="/assets/js/15.736e114f.js"><link rel="prefetch" href="/assets/js/17.7ed05c87.js"><link rel="prefetch" href="/assets/js/18.768e3fef.js"><link rel="prefetch" href="/assets/js/19.b9b3e920.js"><link rel="prefetch" href="/assets/js/20.d5a37bcb.js"><link rel="prefetch" href="/assets/js/21.3c60d355.js"><link rel="prefetch" href="/assets/js/22.de8ef2d3.js"><link rel="prefetch" href="/assets/js/23.e3e72b9d.js"><link rel="prefetch" href="/assets/js/24.352d54fa.js"><link rel="prefetch" href="/assets/js/25.b88eb48c.js"><link rel="prefetch" href="/assets/js/26.d0470dfb.js"><link rel="prefetch" href="/assets/js/27.145e23af.js"><link rel="prefetch" href="/assets/js/28.8de9f849.js"><link rel="prefetch" href="/assets/js/29.6ff6ce5f.js"><link rel="prefetch" href="/assets/js/30.7cf1f417.js"><link rel="prefetch" href="/assets/js/31.4bd54ebe.js"><link rel="prefetch" href="/assets/js/4.44db721b.js"><link rel="prefetch" href="/assets/js/5.68d6b6d1.js"><link rel="prefetch" href="/assets/js/6.3a1a63c6.js"><link rel="prefetch" href="/assets/js/7.1fc989bb.js"><link rel="prefetch" href="/assets/js/8.bd45ce64.js"><link rel="prefetch" href="/assets/js/9.746e0164.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.5af1239f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-19557b78><div data-v-19557b78><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-19557b78 data-v-19557b78><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-19557b78 data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>Milk Hall</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>风中勁草</span>
+            
+          <span data-v-64685f0e>2020 - </span>
+          2023
+        </a></span></div></div> <div class="hide" data-v-19557b78><header class="navbar" data-v-19557b78><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/avatar.jpg" alt="Milk Hall" class="logo"> <span class="site-name">Milk Hall</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/技术杂谈/" class="nav-link"><i class="iconfont undefined"></i>
+  技术杂谈
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端/" class="nav-link"><i class="iconfont undefined"></i>
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/后端/" class="nav-link"><i class="iconfont undefined"></i>
+  后端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/哲学/" class="nav-link"><i class="iconfont undefined"></i>
+  哲学
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间轴
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      文档
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  vuepress-reco
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系方式
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/csic21/blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-19557b78></div> <aside class="sidebar" data-v-19557b78><div class="personal-info-wrapper" data-v-042e23d4><img src="/avatar.jpg" alt="author-avatar" class="personal-img" data-v-042e23d4> <h3 class="name" data-v-042e23d4>
+    风中勁草
+  </h3> <div class="num" data-v-042e23d4><div data-v-042e23d4><h3 data-v-042e23d4>16</h3> <h6 data-v-042e23d4>文章</h6></div> <div data-v-042e23d4><h3 data-v-042e23d4>18</h3> <h6 data-v-042e23d4>标签</h6></div></div> <hr data-v-042e23d4></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/技术杂谈/" class="nav-link"><i class="iconfont undefined"></i>
+  技术杂谈
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端/" class="nav-link"><i class="iconfont undefined"></i>
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/后端/" class="nav-link"><i class="iconfont undefined"></i>
+  后端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/哲学/" class="nav-link"><i class="iconfont undefined"></i>
+  哲学
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间轴
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      文档
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  vuepress-reco
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系方式
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/csic21/blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>React Native集成安卓原生项目（踩坑）</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#核心概念" class="sidebar-link">核心概念</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#开发环境准备" class="sidebar-link">开发环境准备</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#_1-配置项目目录结构" class="sidebar-link">1. 配置项目目录结构</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#_2-安装-javascript-依赖包" class="sidebar-link">2. 安装 JavaScript 依赖包</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#" class="sidebar-link"></a></li></ul></li><li><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#把-react-native-添加到你的应用中" class="sidebar-link">把 React Native 添加到你的应用中</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#配置-maven" class="sidebar-link">配置 maven</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#配置权限" class="sidebar-link">配置权限</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#network-security-config-api-level-28" class="sidebar-link">Network Security Config (API level 28+)</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#代码集成" class="sidebar-link">代码集成</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#测试集成结果" class="sidebar-link">测试集成结果</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#在-android-studio-中打包" class="sidebar-link">在 Android Studio 中打包</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%89%8D%E7%AB%AF/2020/1004.html#出问题的地方" class="sidebar-link">出问题的地方</a></li></ul></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>React Native集成安卓原生项目（踩坑）</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>风中勁草</span>
+            
+          <span data-v-64685f0e>2020 - </span>
+          2023
+        </a></span></div></div> <div data-v-19557b78><main class="page"><div class="page-title" style="display:none;"><h1>React Native集成安卓原生项目（踩坑）</h1> <hr> <div data-v-34ea29db><i class="iconfont reco-account" data-v-34ea29db><span data-v-34ea29db>风中勁草</span></i> <i class="iconfont reco-date" data-v-34ea29db><span data-v-34ea29db>2020-10-04</span></i> <!----> <i class="iconfont reco-tag tags" data-v-34ea29db><span class="tag-item" data-v-34ea29db>JS</span><span class="tag-item" data-v-34ea29db>React</span><span class="tag-item" data-v-34ea29db>React Native</span></i></div></div> <div class="theme-reco-content content__default" style="display:none;"><div class="custom-block tip"><p>根据官方中文站,将react native项目集成到原生项目中</p></div> <h2 id="核心概念"><a href="#核心概念" class="header-anchor">#</a> 核心概念</h2> <p>把 React Native 组件集成到 Android 应用中有如下几个主要步骤：</p> <p>1.配置好 React Native 依赖和项目结构。<br>
+2.创建 js 文件，编写 React Native 组件的 js 代码。<br>
+3.在应用中添加一个RCTRootView。这个RCTRootView正是用来承载你的 React Native 组件的容器。<br>
+4.启动 React Native 的 Packager 服务，运行应用。<br>
+5.验证这部分组件是否正常工作。</p> <h2 id="开发环境准备"><a href="#开发环境准备" class="header-anchor">#</a> 开发环境准备</h2> <p>首先按照开发环境搭建教程来安装 React Native 在 Android 平台上所需的一切依赖软件。</p> <h3 id="_1-配置项目目录结构"><a href="#_1-配置项目目录结构" class="header-anchor">#</a> 1. 配置项目目录结构</h3> <p>首先创建一个空目录用于存放 React Native 项目，然后在其中创建一个/android子目录，把你现有的 Android 项目拷贝到/android子目录中。</p> <h3 id="_2-安装-javascript-依赖包"><a href="#_2-安装-javascript-依赖包" class="header-anchor">#</a> 2. 安装 JavaScript 依赖包</h3> <p>在项目根目录下创建一个名为package.json的空文本文件，然后填入以下内容：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;name&quot;: &quot;MyReactNativeApp&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;yarn react-native start&quot;
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><p>接下来我们使用 yarn 或 npm（两者都是 node 的包管理器）来安装 React 和 React Native 模块。请打开一个终端/命令提示行，进入到项目目录中（即包含有 package.json 文件的目录），然后运行下列命令来安装：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>$ yarn add react-native
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>这样默认会安装最新版本的 React Native，同时会打印出类似下面的警告信息（你可能需要滚动屏幕才能注意到）</p> <div class="custom-block tip"><p>warning &quot;react-native@0.52.2&quot; has unmet peer dependency &quot;react@16.2.0&quot;.</p></div> <p>这是正常现象，意味着我们还需要安装指定版本的 React：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>$ yarn add react@16.2.0
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>注意必须严格匹配警告信息中所列出的版本，高了或者低了都不可以。</p> <h3 id=""><a href="#" class="header-anchor">#</a></h3> <h2 id="把-react-native-添加到你的应用中"><a href="#把-react-native-添加到你的应用中" class="header-anchor">#</a> 把 React Native 添加到你的应用中</h2> <h3 id="配置-maven"><a href="#配置-maven" class="header-anchor">#</a> 配置 maven</h3> <p>在你的 app 中 build.gradle 文件中添加 React Native 依赖:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>dependencies {
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    ...
+    implementation &quot;com.facebook.react:react-native:+&quot; // From node_modules
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><div class="custom-block tip"><p>如果想要指定特定的 React Native 版本，可以用具体的版本号替换 +，当然前提是你从 npm 里下载的是这个版本。</p></div> <p>在项目的 build.gradle 文件中为 React Native 添加一个 maven 依赖的入口，必须写在 &quot;allprojects&quot; 代码块中:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>allprojects {
+    repositories {
+        maven {
+            // All of React Native (JS, Android binaries) is installed from npm
+            url &quot;$rootDir/../node_modules/react-native/android&quot;
+        }
+        ...
+    }
+    ...
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p><em><strong>这里注意node_modules的路径</strong></em></p> <h3 id="配置权限"><a href="#配置权限" class="header-anchor">#</a> 配置权限</h3> <p>接着，在 AndroidManifest.xml 清单文件中声明网络权限:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>如果需要访问 DevSettingsActivity 界面（即开发者菜单），则还需要在 AndroidManifest.xml 中声明:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;activity android:name=&quot;com.facebook.react.devsupport.DevSettingsActivity&quot; /&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>开发者菜单一般仅用于在开发时从 Packager 服务器刷新 JavaScript 代码，所以在正式发布时你可以去掉这一权限。</p> <h3 id="network-security-config-api-level-28"><a href="#network-security-config-api-level-28" class="header-anchor">#</a> Network Security Config (API level 28+)</h3> <h4 id="_1-create-the-following-resource-files"><a href="#_1-create-the-following-resource-files" class="header-anchor">#</a> 1. Create the following resource files</h4> <p>app/src/debug/res/xml/network_security_config.xml:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;network-security-config&gt;
+  &lt;!-- allow cleartext traffic for React Native packager ips in debug --&gt;
+  &lt;domain-config cleartextTrafficPermitted=&quot;true&quot;&gt;
+    &lt;domain includeSubdomains=&quot;false&quot;&gt;localhost&lt;/domain&gt;
+    &lt;domain includeSubdomains=&quot;false&quot;&gt;10.0.2.2&lt;/domain&gt;
+    &lt;domain includeSubdomains=&quot;false&quot;&gt;10.0.3.2&lt;/domain&gt;
+  &lt;/domain-config&gt;
+&lt;/network-security-config&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p>app/src/release/res/xml/network_security_config.xml:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;network-security-config&gt;
+  &lt;!-- deny cleartext traffic for React Native packager ips in release --&gt;
+  &lt;domain-config cleartextTrafficPermitted=&quot;false&quot;&gt;
+    &lt;domain includeSubdomains=&quot;false&quot;&gt;localhost&lt;/domain&gt;
+    &lt;domain includeSubdomains=&quot;false&quot;&gt;10.0.2.2&lt;/domain&gt;
+    &lt;domain includeSubdomains=&quot;false&quot;&gt;10.0.3.2&lt;/domain&gt;
+  &lt;/domain-config&gt;
+&lt;/network-security-config&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h4 id="_2-apply-the-config-to-your-androidmanifest-xml"><a href="#_2-apply-the-config-to-your-androidmanifest-xml" class="header-anchor">#</a> 2. Apply the config to your AndroidManifest.xml</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- ... --&gt;
+&lt;application
+  android:networkSecurityConfig=&quot;@xml/network_security_config&quot;&gt;
+  &lt;!-- ... --&gt;
+&lt;/application&gt;
+&lt;!-- ... --&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h3 id="代码集成"><a href="#代码集成" class="header-anchor">#</a> 代码集成</h3> <h4 id="_1-创建一个index-js文件"><a href="#_1-创建一个index-js文件" class="header-anchor">#</a> 1. 创建一个index.js文件</h4> <p>首先在项目根目录中创建一个空的index.js文件。(注意在 0.49 版本之前是 index.android.js 文件)</p> <p>index.js是 React Native 应用在 Android 上的入口文件。而且它是不可或缺的！它可以是个很简单的文件，简单到可以只包含一行require/import导入语句。本教程中为了简单示范，把全部的代码都写到了index.js里（当然实际开发中我们并不推荐这样做）。</p> <h4 id="_2-添加你自己的-react-native-代码"><a href="#_2-添加你自己的-react-native-代码" class="header-anchor">#</a> 2. 添加你自己的 React Native 代码</h4> <p>在index.js中添加你自己的组件。这里我们只是简单的添加一个<Text>组件，然后用一个带有样式的<View>组件把它包起来。</View></Text></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>import React from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+
+class HelloWorld extends React.Component {
+  render() {
+    return (
+      &lt;View style={styles.container}&gt;
+        &lt;Text style={styles.hello}&gt;Hello, World&lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  hello: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10
+  }
+});
+
+AppRegistry.registerComponent(
+  'MyReactNativeApp',
+  () =&gt; HelloWorld
+);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br></div></div><h4 id="_3-配置权限以便开发中的红屏错误能正确显示"><a href="#_3-配置权限以便开发中的红屏错误能正确显示" class="header-anchor">#</a> 3. 配置权限以便开发中的红屏错误能正确显示</h4> <p>如果你的应用会运行在 Android 6.0（API level 23）或更高版本，请确保你在开发版本中有打开悬浮窗(overlay)权限。你可以在代码中使用Settings.canDrawOverlays(this);来检查。之所以需要这一权限，是因为我们会把开发中的报错显示在悬浮窗中（仅在开发阶段需要）。在 Android 6.0（API level 23）中用户需要手动同意授权。具体请求授权的做法是在onCreate()中添加如下代码。其中OVERLAY_PERMISSION_REQ_CODE是用于回传授权结果的字段。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>private final int OVERLAY_PERMISSION_REQ_CODE = 1;  // 任写一个值
+
+...
+
+if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) {
+    if (!Settings.canDrawOverlays(this)) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                   Uri.parse(&quot;package:&quot; + getPackageName()));
+        startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>Finally, the onActivityResult() method (as shown in the code below) has to be overridden to handle the permission Accepted or Denied cases for consistent UX. Also, for integrating Native Modules which use startActivityForResult, we need to pass the result to the onActivityResult method of our ReactInstanceManager instance.</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                // SYSTEM_ALERT_WINDOW permission not granted
+            }
+        }
+    }
+    mReactInstanceManager.onActivityResult( this, requestCode, resultCode, data );
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><h4 id="掌握核心科技：reactrootview"><a href="#掌握核心科技：reactrootview" class="header-anchor">#</a> 掌握核心科技：ReactRootView</h4> <p>我们还需要添加一些原生代码来启动 React Native 的运行时环境并让它开始渲染。首先需要在一个Activity中创建一个ReactRootView对象，然后在这个对象之中启动 React Native 应用，并将它设为界面的主视图。</p> <div class="custom-block tip"><p>如果你想在安卓 5.0 以下的系统上运行，请用 com.android.support:appcompat 包中的 AppCompatActivity 代替 Activity 。</p></div> <div class="language- line-numbers-mode"><pre class="language-text"><code>public class MyReactActivity extends Activity implements DefaultHardwareBackBtnHandler {
+    private ReactRootView mReactRootView;
+    private ReactInstanceManager mReactInstanceManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mReactRootView = new ReactRootView(this);
+        mReactInstanceManager = ReactInstanceManager.builder()
+                .setApplication(getApplication())
+                .setCurrentActivity(this)
+                .setBundleAssetName(&quot;index.android.bundle&quot;)
+                .setJSMainModulePath(&quot;index&quot;)
+                .addPackage(new MainReactPackage())
+                .setUseDeveloperSupport(BuildConfig.DEBUG)
+                .setInitialLifecycleState(LifecycleState.RESUMED)
+                .build();
+        // 注意这里的MyReactNativeApp必须对应“index.js”中的
+        // “AppRegistry.registerComponent()”的第一个参数
+        mReactRootView.startReactApplication(mReactInstanceManager, &quot;MyReactNativeApp&quot;, null);
+
+        setContentView(mReactRootView);
+    }
+
+    @Override
+    public void invokeDefaultOnBackPressed() {
+        super.onBackPressed();
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br></div></div><p>如果你使用的是 Android Studio , 可以使用Alt + Enter快捷键来自动为 MyReactActivity 类补上缺失的 import 语句。注意BuildConfig应该是在你自己的包中自动生成，无需额外引入。千万不要从com.facebook...的包中引入！</p> <p>我们需要把 MyReactActivity 的主题设定为 Theme.AppCompat.Light.NoActionBar ，因为里面有许多组件都使用了这一主题。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;activity
+  android:name=&quot;.MyReactActivity&quot;
+  android:label=&quot;@string/app_name&quot;
+  android:theme=&quot;@style/Theme.AppCompat.Light.NoActionBar&quot;&gt;
+&lt;/activity&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>下一步我们需要把一些 activity 的生命周期回调传递给ReactInstanceManager：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>@Override
+protected void onPause() {
+    super.onPause();
+
+    if (mReactInstanceManager != null) {
+        mReactInstanceManager.onHostPause(this);
+    }
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+
+    if (mReactInstanceManager != null) {
+        mReactInstanceManager.onHostResume(this, this);
+    }
+}
+
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+
+    if (mReactInstanceManager != null) {
+        mReactInstanceManager.onHostDestroy(this);
+    }
+    if (mReactRootView != null) {
+        mReactRootView.unmountReactApplication();
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br></div></div><p>我们还需要把后退按钮事件传递给 React Native：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>@Override
+ public void onBackPressed() {
+    if (mReactInstanceManager != null) {
+        mReactInstanceManager.onBackPressed();
+    } else {
+        super.onBackPressed();
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><p>This allows JavaScript to control what happens when the user presses the hardware back button (e.g. to implement navigation). When JavaScript doesn't handle the back button press, your invokeDefaultOnBackPressed method will be called. By default this simply finishes your Activity.</p> <p>Finally, we need to hook up the dev menu. By default, this is activated by (rage) shaking the device, but this is not very useful in emulators. So we make it show when you press the hardware menu button (use Ctrl + M if you're using Android Studio emulator):</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>@Override
+public boolean onKeyUp(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_MENU &amp;&amp; mReactInstanceManager != null) {
+        mReactInstanceManager.showDevOptionsDialog();
+        return true;
+    }
+    return super.onKeyUp(keyCode, event);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="测试集成结果"><a href="#测试集成结果" class="header-anchor">#</a> 测试集成结果</h3> <h4 id="_1-运行-packager"><a href="#_1-运行-packager" class="header-anchor">#</a> 1. 运行 Packager</h4> <p>运行应用首先需要启动开发服务器（Packager）。你只需在项目根目录中执行以下命令即可：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>$ yarn start
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h4 id="_2-运行你的应用"><a href="#_2-运行你的应用" class="header-anchor">#</a> 2. 运行你的应用</h4> <p>保持 packager 的窗口运行不要关闭，然后像往常一样编译运行你的 Android 应用(在命令行中执行./gradlew installDebug或是在 Android Studio 中编译运行)。</p> <p>编译执行一切顺利进行之后，在进入到 MyReactActivity 时应该就能立刻从 packager 中读取 JavaScript 代码并执行和显示：<br> <img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/EmbeddedAppAndroid.png" alt="图片"></p> <h3 id="在-android-studio-中打包"><a href="#在-android-studio-中打包" class="header-anchor">#</a> 在 Android Studio 中打包</h3> <p>你也可以使用 Android Studio 来打 release 包！其步骤基本和原生应用一样，只是在每次编译打包之前需要先执行 js 文件的打包(即生成离线的 jsbundle 文件)。具体的 js 打包命令如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>$ npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/com/your-company-name/app-package-name/src/main/assets/index.android.bundle --assets-dest android/com/your-company-name/app-package-name/src/main/res/
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>注意把上述命令中的路径替换为你实际项目的路径。如果 assets 目录不存在，则需要提前自己创建一个。
+然后在 Android Studio 中正常生成 release 版本即可！</p> <h3 id="出问题的地方"><a href="#出问题的地方" class="header-anchor">#</a> 出问题的地方</h3> <h4 id="java-lang-unsatisfiedlinkerror-couldn-t-find-dso-to-load-libhermes-so"><a href="#java-lang-unsatisfiedlinkerror-couldn-t-find-dso-to-load-libhermes-so" class="header-anchor">#</a> java.lang.UnsatisfiedLinkError: couldn’t find DSO to load: libhermes.so</h4> <p>集成RN到已有项目，运行时出现。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>E/AndroidRuntime: FATAL EXCEPTION: create_react_context
+Process: com.ado.example, PID: 25851
+java.lang.UnsatisfiedLinkError: couldn't find DSO to load: libhermes.so
+at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:738)
+at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:591)
+at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:529)
+at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:484)
+at com.facebook.hermes.reactexecutor.HermesExecutor.(HermesExecutor.java:20)
+at com.facebook.hermes.reactexecutor.HermesExecutorFactory.create(HermesExecutorFactory.java:27)
+at com.facebook.react.ReactInstanceManager$5.run(ReactInstanceManager.java:949)
+at java.lang.Thread.run(Thread.java:818)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p><em><strong>原因</strong></em>
+这是因为在React Native 0.60之后，新增了Facebook自研的js引擎Hermes。没有在项目的build.gradle中配置Hermes的仓库，所以找不到so文件。使用RN创建新项目时，RN会自动为我们生成标准的build.gradle。
+<em><strong>解决方式</strong></em>
+修改android根目录的build.gradle</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>...
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url &quot;$rootDir/../node_modules/react-native/android&quot;
+        }
+        maven {
+            // Android JSC is installed from npm
+            url(&quot;$rootDir/../node_modules/jsc-android/dist&quot;)
+        }
+        google()
+    }
+}
+...
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><p>修改app目录的build.gradle</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>//最外层加上
+project.ext.react = [
+    enableHermes: false,  // clean and rebuild if changing
+]
+def jscFlavor = 'org.webkit:android-jsc:+'
+def enableHermes = project.ext.react.get(&quot;enableHermes&quot;, false);
+
+android{
+  	.....
+}
+
+dependencies{
+  	.....
+    //在这里添加依赖配置
+    if (enableHermes) {
+        def hermesPath = &quot;../../node_modules/hermes-engine/android/&quot;;
+        debugImplementation files(hermesPath + &quot;hermes-debug.aar&quot;)
+        releaseImplementation files(hermesPath + &quot;hermes-release.aar&quot;)
+    } else {
+        implementation jscFlavor
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div><p>点击sync now,再次运行项目，就不会报错了。</p></div> <footer class="page-edit" style="display:none;"><!----> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2022/3/8 18:30:00</span></div></footer> <!----> <!----></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-44bd5a18 data-v-44bd5a18><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-44bd5a18><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-44bd5a18></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-44bd5a18></path></svg></div><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到 Milk Hall
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="150" height="220" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div></div></div>
+    <script src="/assets/js/app.b426a529.js" defer></script><script src="/assets/js/3.574157a2.js" defer></script><script src="/assets/js/1.e34c0054.js" defer></script><script src="/assets/js/16.f9601720.js" defer></script>
+  </body>
+</html>

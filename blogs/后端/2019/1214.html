@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>《深入理解java虚拟机》读书笔记（一） | Milk Hall</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="blog">
+    <meta property="article:published_time" content="2019-12-14T00:00:00.000Z">
+    <meta property="article:modified_time" content="2022-03-08T10:30:00.000Z">
+    <meta property="og:site_name" content="Milk Hall">
+    <meta property="og:title" content="《深入理解java虚拟机》读书笔记（一）">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html">
+    <meta name="twitter:title" content="《深入理解java虚拟机》读书笔记（一）">
+    <meta name="twitter:url" content="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="JAVA, JVM">
+    <meta property="article:tag" content="JAVA">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="preload" href="/assets/css/0.styles.5af1239f.css" as="style"><link rel="preload" href="/assets/js/app.b426a529.js" as="script"><link rel="preload" href="/assets/js/3.574157a2.js" as="script"><link rel="preload" href="/assets/js/1.e34c0054.js" as="script"><link rel="preload" href="/assets/js/25.b88eb48c.js" as="script"><link rel="prefetch" href="/assets/js/10.e3688b97.js"><link rel="prefetch" href="/assets/js/11.3b582819.js"><link rel="prefetch" href="/assets/js/12.6c029b29.js"><link rel="prefetch" href="/assets/js/13.e4d74466.js"><link rel="prefetch" href="/assets/js/14.8d489122.js"><link rel="prefetch" href="/assets/js/15.736e114f.js"><link rel="prefetch" href="/assets/js/16.f9601720.js"><link rel="prefetch" href="/assets/js/17.7ed05c87.js"><link rel="prefetch" href="/assets/js/18.768e3fef.js"><link rel="prefetch" href="/assets/js/19.b9b3e920.js"><link rel="prefetch" href="/assets/js/20.d5a37bcb.js"><link rel="prefetch" href="/assets/js/21.3c60d355.js"><link rel="prefetch" href="/assets/js/22.de8ef2d3.js"><link rel="prefetch" href="/assets/js/23.e3e72b9d.js"><link rel="prefetch" href="/assets/js/24.352d54fa.js"><link rel="prefetch" href="/assets/js/26.d0470dfb.js"><link rel="prefetch" href="/assets/js/27.145e23af.js"><link rel="prefetch" href="/assets/js/28.8de9f849.js"><link rel="prefetch" href="/assets/js/29.6ff6ce5f.js"><link rel="prefetch" href="/assets/js/30.7cf1f417.js"><link rel="prefetch" href="/assets/js/31.4bd54ebe.js"><link rel="prefetch" href="/assets/js/4.44db721b.js"><link rel="prefetch" href="/assets/js/5.68d6b6d1.js"><link rel="prefetch" href="/assets/js/6.3a1a63c6.js"><link rel="prefetch" href="/assets/js/7.1fc989bb.js"><link rel="prefetch" href="/assets/js/8.bd45ce64.js"><link rel="prefetch" href="/assets/js/9.746e0164.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.5af1239f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-19557b78><div data-v-19557b78><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-19557b78 data-v-19557b78><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-19557b78 data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>Milk Hall</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>风中勁草</span>
+            
+          <span data-v-64685f0e>2020 - </span>
+          2023
+        </a></span></div></div> <div class="hide" data-v-19557b78><header class="navbar" data-v-19557b78><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/avatar.jpg" alt="Milk Hall" class="logo"> <span class="site-name">Milk Hall</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/技术杂谈/" class="nav-link"><i class="iconfont undefined"></i>
+  技术杂谈
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端/" class="nav-link"><i class="iconfont undefined"></i>
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/后端/" class="nav-link"><i class="iconfont undefined"></i>
+  后端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/哲学/" class="nav-link"><i class="iconfont undefined"></i>
+  哲学
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间轴
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      文档
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  vuepress-reco
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系方式
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/csic21/blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-19557b78></div> <aside class="sidebar" data-v-19557b78><div class="personal-info-wrapper" data-v-042e23d4><img src="/avatar.jpg" alt="author-avatar" class="personal-img" data-v-042e23d4> <h3 class="name" data-v-042e23d4>
+    风中勁草
+  </h3> <div class="num" data-v-042e23d4><div data-v-042e23d4><h3 data-v-042e23d4>16</h3> <h6 data-v-042e23d4>文章</h6></div> <div data-v-042e23d4><h3 data-v-042e23d4>18</h3> <h6 data-v-042e23d4>标签</h6></div></div> <hr data-v-042e23d4></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/技术杂谈/" class="nav-link"><i class="iconfont undefined"></i>
+  技术杂谈
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端/" class="nav-link"><i class="iconfont undefined"></i>
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/后端/" class="nav-link"><i class="iconfont undefined"></i>
+  后端
+</a></li><li class="dropdown-item"><!----> <a href="/categories/哲学/" class="nav-link"><i class="iconfont undefined"></i>
+  哲学
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间轴
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      文档
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/theme-reco/" class="nav-link"><i class="iconfont undefined"></i>
+  vuepress-reco
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      联系方式
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/csic21/blog" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>《深入理解java虚拟机》读书笔记（一）</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html#一、手动编译jdk" class="sidebar-link">一、手动编译jdk</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html#_1-获取openjdk源码" class="sidebar-link">1. 获取OpenJDK源码</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html#_2-系统需求" class="sidebar-link">2. 系统需求</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html#_3-构建编译环境" class="sidebar-link">3. 构建编译环境</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html#_4-开始编译" class="sidebar-link">4. 开始编译</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html#_5-验证" class="sidebar-link">5. 验证</a></li><li class="sidebar-sub-header"><a href="/blogs/%E5%90%8E%E7%AB%AF/2019/1214.html#_6-出现的问题补充" class="sidebar-link">6.出现的问题补充</a></li></ul></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>《深入理解java虚拟机》读书笔记（一）</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>风中勁草</span>
+            
+          <span data-v-64685f0e>2020 - </span>
+          2023
+        </a></span></div></div> <div data-v-19557b78><main class="page"><div class="page-title" style="display:none;"><h1>《深入理解java虚拟机》读书笔记（一）</h1> <hr> <div data-v-34ea29db><i class="iconfont reco-account" data-v-34ea29db><span data-v-34ea29db>风中勁草</span></i> <i class="iconfont reco-date" data-v-34ea29db><span data-v-34ea29db>2019-12-14</span></i> <!----> <i class="iconfont reco-tag tags" data-v-34ea29db><span class="tag-item" data-v-34ea29db>JAVA</span><span class="tag-item" data-v-34ea29db>JVM</span></i></div></div> <div class="theme-reco-content content__default" style="display:none;"><div class="custom-block tip"><p>之前看这本书在第一步编译上没成功就没看了这回把这本书捡起来，该文章作为《深入理解java虚拟机》整本书的记录</p></div> <h2 id="一、手动编译jdk"><a href="#一、手动编译jdk" class="header-anchor">#</a> 一、手动编译jdk</h2> <h3 id="_1-获取openjdk源码"><a href="#_1-获取openjdk源码" class="header-anchor">#</a> 1. 获取OpenJDK源码</h3> <p>从官网下载：http://jdk.java.net/java-se-ri/8</p> <h3 id="_2-系统需求"><a href="#_2-系统需求" class="header-anchor">#</a> 2. 系统需求</h3> <p>本次使用wsl的ubuntu16.04LTS</p> <h3 id="_3-构建编译环境"><a href="#_3-构建编译环境" class="header-anchor">#</a> 3. 构建编译环境</h3> <p>因为OpenJDK的各个组成部分有的是使用C++编译，有的是使用Java自身实现的，所以编译这些Java代码需要一个可用的JDK，官方称这个JDK为“Bootstrap JDK”,通常是使用上一个版本的JDK，所以我使用的版本为：jdk-7u80-linux-x64</p> <p>下载依赖包</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>sudo apt-get install libx11-dev libxext-dev libxrender-dev libxtst-dev libxt-dev libcups2-dev libfreetype6-dev libasound2-dev ccache
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="_4-开始编译"><a href="#_4-开始编译" class="header-anchor">#</a> 4. 开始编译</h3> <p>解压OpenJDK源码并进入目录</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>unzip openjdk-8u40-src-b25-10_feb_2015.zip
+cd openjdk/
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>运行命令</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>sudo bash ./configure --with-target-bits=64 --with-boot-jdk=/home/jiazhifeng/workspace/jdk1.7.0_80/ --with-debug-level=slowdebug --enable-debug-symbols ZIP_DEBUGINFO_FILES=0
+sudo make all DISABLE_HOTSPOT_OS_VERSION_CHECK=OK ZIP_DEBUGINFO_FILES=0
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>==说明下第一条命令configure用到的参数作用：</p> <p>–with-target-bits=64 ：指定生成64位jdk；</p> <p>–with-boot-jdk=/usr/java/jdk1.7.0_80/：启动“Bootstrap JDK”的路径；</p> <p>–with-debug-level=slowdebug：编译时debug的级别，有release, fastdebug, slowdebug 三种级别；</p> <p>–enable-debug-symbols ZIP_DEBUGINFO_FILES=0：生成调试的符号信息，并且不压缩；==</p> <p>这里出现了点问题</p> <p>++configure: error: Could not find freetype! You might be able to fix this by running 'sudo apt-get install libfreetype6-dev'.
+configure exiting with result code 1++
+但是我安装以后还是出现这个问题,在stack overflow查看了一下需要额外增加一句配置</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>./configure --with-freetype-include=/usr/include/freetype2 --with-freetype-lib=/usr/lib/x86_64-linux-gnu
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>之后配置如下</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>sudo bash ./configure --with-target-bits=64 --with-boot-jdk=/home/xg/jdk1.7.0_80/ --with-debug-level=slowdebug --enable-debug-symbols ZIP_DEBUGINFO_FILES=0 --with-freetype-include=/usr/include/freetype2 --with-freetype-lib=/usr/lib/x86_64-linux-gnu
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>出现如下代码算是可以进行下一步</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Configuration summary:
+* Debug level:    slowdebug
+* JDK variant:    normal
+* JVM variants:   server
+* OpenJDK target: OS: linux, CPU architecture: x86, address length: 64
+
+Tools summary:
+* Boot JDK:       java version &quot;1.7.0_80&quot; Java(TM) SE Runtime Environment (build 1.7.0_80-b15) Java HotSpot(TM) 64-Bit Server VM (build 24.80-b11, mixed mode)  (at /home/xg/jdk1.7.0_80)
+* C Compiler:     gcc-5 (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 version 20160609 (at /usr/bin/gcc-5)
+* C++ Compiler:   g++-5 (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 version 20160609 (at /usr/bin/g++-5)
+
+Build performance summary:
+* Cores to use:   10
+* Memory limit:   16335 MB
+* ccache status:  installed, but disabled (version older than 3.1.4)
+
+Build performance tip: ccache gives a tremendous speedup for C++ recompilations.
+You have ccache installed, but it is a version prior to 3.1.4. Try upgrading.
+You might be able to fix this by running 'sudo apt-get install ccache'.
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div><p>执行编译前先设定下语言选项，可先执行echo $LANG，看下输出，如果不是C，则执行export LANG=C
+之后输入命令</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>sudo make all DISABLE_HOTSPOT_OS_VERSION_CHECK=OK ZIP_DEBUGINFO_FILES=0
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="_5-验证"><a href="#_5-验证" class="header-anchor">#</a> 5. 验证</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>cd build/linux-x86_64-normal-server-slowdebug/images/j2sdk-image/bin/
+./java -version
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>成功编译</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>openjdk version &quot;1.8.0-internal-debug&quot;
+OpenJDK Runtime Environment (build 1.8.0-internal-debug-root_2019_12_13_19_39-b00)
+OpenJDK 64-Bit Server VM (build 25.40-b25-debug, mixed mode)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h3 id="_6-出现的问题补充"><a href="#_6-出现的问题补充" class="header-anchor">#</a> 6.出现的问题补充</h3> <h5 id="①"><a href="#①" class="header-anchor">#</a> ①</h5> <p><code>/mnt/Data/AppsData/Repository/java/jdk/8/hotspot/src/os/linux/vm/os_linux.inline.hpp:127:18: warning: ‘int readdir_r(DIR*, dirent*, dirent**)’ is deprecated (declared at /usr/include/dirent.h:183) [-Wdeprecated-declarations] if((status = ::readdir_r(dirp, dbuf, &amp;p)) != 0) {</code>
+原文链接：https://blog.csdn.net/desiyonan/article/details/80802066</p> <p>分析原因:</p> <ol><li>gcc 编译环境中开启了相关警告提示</li></ol> <p>解决方案：
+查看./hotspot/make/[you_os]/makefiles/gcc.make文件</p> <p>在./hotspot/make/linux/makefiles/gcc.make文件中找到</p> <p><code>WARNINGS_ARE_ERRORS = -Werror</code>
+将其 注释 或改为 <code>WARNINGS_ARE_ERRORS = -Wno-all</code></p> <p>类似的警告都可以通过以下参数来设置，在该文件下找到WARNING_FLAGS，就在上述变量附近，添加需要注释的警告</p> <p><code>WARNING_FLAGS = -Wno-deprecated-declarations -Wno-unused-parameter -Wno-sign-compare -Wno-error</code></p> <p>或者关闭所有警告</p> <p>WARNING_FLAGS = -w</p> <p>不过貌似只对编译hotspot时有用</p> <h5 id="②"><a href="#②" class="header-anchor">#</a> ②</h5> <p><code>left operand of shift expression ‘(-1 &lt;&lt; 28)’ is negative [-fpermissive] invalid suffix on literal; C++11 requires a space between literal and string</code></p> <p>报这个错误是由于ubuntu18.x或是ubuntu19.x的gcc和g++版本太高了，导致编译通不过，所以需要将ubuntu中的gcc和g++版本降低。</p> <p>解决方法如下：</p> <p>先查看自己ubuntu中的gcc版本 gcc --version
+我是把gcc和g++降到gcc/g++5的版本，就可以编译通过了</p> <p>下载gcc/g++ 5：
+sudo apt-get install -y gcc-5
+sudo apt-get install -y g++-52.
+链接gcc/g++实现降级：
+cd /usr/bin
+sudo rm gcc
+sudo ln -s gcc-5 gcc
+sudo rm g++
+sudo ln -s g++-5 g++
+再次查看gcc版本，可以看到已经降级.</p> <p>gcc --version</p> <p>链接：https://www.jianshu.com/p/8a53708dd08a</p> <h5 id="③"><a href="#③" class="header-anchor">#</a> ③</h5> <p>如果遇到： &quot;this OS is not supported:&quot; 'uname -a';exit 1; 这个错误就是内核版本不支持的问题（openjdk8我还没遇到这个错误），在编译Hotspot时通不过</p> <p>解决：找到hotspot/make/linux/Makefile,在Makefile文件中定位到SUPPORTED_OS_VERSION的代码，在末尾添加自己ubuntu当前的内核版本。</p> <p>SUPPORTED_OS_VERSION = 2.4% 2.5% 2.6% 3% 4%</p> <p>ubuntu18.04的内核版本是4.x%的，大家查看下自己的内核版本是多少，如果Makefile文件中有，就不用添加了，没有添加上就行
+本人的是 5.0的所以就在末尾添加5%
+链接：https://www.jianshu.com/p/8a53708dd08a</p></div> <footer class="page-edit" style="display:none;"><!----> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2022/3/8 18:30:00</span></div></footer> <!----> <!----></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-44bd5a18 data-v-44bd5a18><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-44bd5a18><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-44bd5a18></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-44bd5a18></path></svg></div><div class="kanbanniang" data-v-5775ee02><div class="banniang-container" style="display:;" data-v-5775ee02><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5775ee02>
+      欢迎来到 Milk Hall
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5775ee02><i class="kbnfont kbn-ban-home ban-home" data-v-5775ee02></i> <i class="kbnfont kbn-ban-message message" data-v-5775ee02></i> <i class="kbnfont kbn-ban-close close" data-v-5775ee02></i> <a target="_blank" href="https://vuepress-theme-reco.recoluan.com/views/plugins/kanbanniang.html" data-v-5775ee02><i class="kbnfont kbn-ban-info info" data-v-5775ee02></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5775ee02></i></div> <canvas id="banniang" width="150" height="220" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5775ee02></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5775ee02>
+    看板娘
+  </div></div></div></div>
+    <script src="/assets/js/app.b426a529.js" defer></script><script src="/assets/js/3.574157a2.js" defer></script><script src="/assets/js/1.e34c0054.js" defer></script><script src="/assets/js/25.b88eb48c.js" defer></script>
+  </body>
+</html>
