@@ -1,47 +1,47 @@
-name: Docker Image CI
+# name: Docker Image CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+# on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Make envfile
-      uses: SpicyPizza/create-envfile@v1
-      with:
-        envkey_VSSUEID: ${{ secrets.VSSUEID }}
-        envkey_VSSUESECRET: ${{ secrets.VSSUESECRET }}
-        file_name: .env
-    - name: Build the Docker image
-      uses: actions/setup-node@v2
-      with:
-          node-version: 16
-    - run: npm install
-    - run: npm run build
-    - run: docker login --username=${{ secrets.DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }}
-    - run: docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/milkhall/blog:${{ github.sha }}
-    - run: docker push registry.cn-hangzhou.aliyuncs.com/milkhall/blog:${{ github.sha }}
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - run: ls
-    - run: sed -i 's/{TAG}/${{ github.sha }}/g' nginx-deployment.yml
-    - name: deploy to cluster
-      uses: steebchen/kubectl@master
-      with:
-        config: ${{ secrets.KUBE_CONFIG_DATA }}
-        version: v1.22.7
-        command: apply -f nginx-deployment.yml
-    # - name: verify deployment
-    #   uses: steebchen/kubectl@master
-    #   with:
-    #     version: v1.22.7
-    #     config: ${{ secrets.KUBE_CONFIG_DATA }}
-    #     command: '"rollout status -n blog deployment/blog"'
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Make envfile
+#       uses: SpicyPizza/create-envfile@v1
+#       with:
+#         envkey_VSSUEID: ${{ secrets.VSSUEID }}
+#         envkey_VSSUESECRET: ${{ secrets.VSSUESECRET }}
+#         file_name: .env
+#     - name: Build the Docker image
+#       uses: actions/setup-node@v2
+#       with:
+#           node-version: 16
+#     - run: npm install
+#     - run: npm run build
+#     - run: docker login --username=${{ secrets.DOCKER_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }}
+#     - run: docker build . --file Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/milkhall/blog:${{ github.sha }}
+#     - run: docker push registry.cn-hangzhou.aliyuncs.com/milkhall/blog:${{ github.sha }}
+#   deploy:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - run: ls
+#     - run: sed -i 's/{TAG}/${{ github.sha }}/g' nginx-deployment.yml
+#     - name: deploy to cluster
+#       uses: steebchen/kubectl@master
+#       with:
+#         config: ${{ secrets.KUBE_CONFIG_DATA }}
+#         version: v1.22.7
+#         command: apply -f nginx-deployment.yml
+#     # - name: verify deployment
+#     #   uses: steebchen/kubectl@master
+#     #   with:
+#     #     version: v1.22.7
+#     #     config: ${{ secrets.KUBE_CONFIG_DATA }}
+#     #     command: '"rollout status -n blog deployment/blog"'
