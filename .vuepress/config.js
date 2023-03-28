@@ -8,7 +8,6 @@ module.exports = {
       lang: "zh-CN",
     },
   },
-  base:'/blog/',
   headerBackgroundImg: "/logo.png",
   head: [
     [
