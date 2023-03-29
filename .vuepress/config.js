@@ -99,7 +99,6 @@ module.exports = {
     lastUpdated: "Last Updated",
     author: "风中勁草",
     authorAvatar: "/avatar.jpg",
-    recordLink: 'https://beian.miit.gov.cn/',
     startYear: '2020'
   },
   markdown: {
