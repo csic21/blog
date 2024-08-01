@@ -1,6 +1,6 @@
 ---
 title: Git + Obisidian
-date: 2024-0801
+date: 2024-08-01
 sidebar: "auto"
 tags:
   - git
