@@ -13,9 +13,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/theme-reco/api.md",
+                "file": "blogs/计算机技术/2024/Git + Obisidian.md",
                 "mode": "source",
-                "source": false
+                "source": true
               }
             }
           }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/theme-reco/api.md",
+                "file": "blogs/计算机技术/2024/Git + Obisidian.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/theme-reco/api.md",
+                "file": "blogs/计算机技术/2024/Git + Obisidian.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/theme-reco/api.md"
+                "file": "blogs/计算机技术/2024/Git + Obisidian.md"
               }
             }
           },
@@ -162,8 +162,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "9631caf53890186f",
+  "active": "134b90bbfe3a66da",
   "lastOpenFiles": [
+    "blogs/其他/2021/0720.md",
+    "blogs/计算机技术/2024/Git + Obisidian.md",
+    "docs/theme-reco/api.md",
     "blogs/前端/2020/1113.md",
     "blogs/前端/2020/1004.md",
     "blogs/前端/2020/0915.md",
@@ -171,7 +174,6 @@
     "blogs/哲学/2022/0508.md",
     "blogs/前端/2021/1020.md",
     "blogs/计算机技术/2024/0801.md",
-    "blogs/其他/2021/0720.md",
     "blogs/后端/2019/1203.md",
     "blogs/后端/2019/1214.md",
     "blogs/后端/2019/1017.md",
